@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div class="main-layout">
     <Header />
     <router-view />
   </div>
 </template>
 
 <script>
-import Header from "@/components/Header";
+import Header from "@/components/Header.vue";
 export default {
-  name: "main-layout",
-  component: {
+  name: "MainLayout",
+  components: {
     Header
   }
 };

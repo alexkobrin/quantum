@@ -1,69 +1,66 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">Login</span>
       <div class="input-field">
         <input
           id="email"
+          v-model.trim="$v.email.$model"
           type="text"
-          v-model.trim="email"
           :class="{
             invalid:
-              ($v.email.$dirty && !$v.email.required) ||
-              ($v.email.$dirty && !$v.email.email)
+              ($v.email.$dirty && $v.email.email.$invalid) ||
+              ($v.email.$dirty && $v.email.required.$invalid)
           }"
-          class="validate"
         />
         <label for="email">Email</label>
         <small
+          v-if="$v.email.$dirty && $v.email.required.$invalid"
           class="helper-text invalid"
-          v-if="$v.email.$dirty && !$v.email.required"
-          >Поле email не должно быть пустым</small
-        >
+          >Field email should not be empty
+        </small>
         <small
+          v-else-if="$v.email.$dirty && $v.email.email.$invalid"
           class="helper-text invalid"
-          v-else-if="$v.email.$dirty && !$v.email.email"
           >Введите корректный email</small
         >
       </div>
       <div class="input-field">
         <input
           id="password"
+          v-model.trim="$v.password.$model"
           type="password"
           :class="{
             invalid:
-              ($v.password.$dirty && !$v.password.required) ||
+              ($v.password.$dirty && $v.password.required.$invalid) ||
               ($v.password.$dirty && !$v.password.minLength)
           }"
-          v-model.trim="password"
           class="validate"
         />
-        <label for="password">Пароль</label>
+        <label for="password">Password</label>
         <small
+          v-if="$v.password.$dirty && $v.password.required.$invalid"
           class="helper-text invalid"
-          v-if="$v.password.$dirty && !$v.password.required"
           >Поле не должно быть пустым</small
         >
         <small
+          v-else-if="$v.password.$dirty && $v.password.minLength.$invalid"
           class="helper-text invalid"
-          v-else-if="$v.password.$dirty && !$v.password.minLength"
-          >Пароль должен быть больше
-          {{ $v.password.$params.minLength.min }} символов. Сейчас он
-          {{ password.length }}символов</small
+          >Password should be at least 6 symbols. It is
+          {{ password.length }} symbols</small
         >
       </div>
     </div>
     <div class="card-action">
       <div>
         <button class="btn waves-effect waves-light auth-submit" type="submit">
-          Войти
+          Login
           <i class="material-icons right">send</i>
         </button>
       </div>
-
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        Haven't account?
+        <router-link to="/register">SignUp</router-link>
       </p>
     </div>
   </form>
@@ -72,7 +69,7 @@
 import { email, required, minLength } from "vuelidate/lib/validators";
 
 export default {
-  name: "login",
+  name: "Login",
 
   data: () => ({
     email: "",
@@ -83,27 +80,47 @@ export default {
     password: { required, minLength: minLength(6) }
   },
   mounted() {
-    if (messages[this.$route.query.message]) {
-      this.$message(messages[this.$route.query.message]);
-    }
+    // if (messages[this.$route.query.message]) {
+    //   this.$message(messages[this.$route.query.message]);
+    // }
   },
   methods: {
-    async submitHandler() {
-      if (this.$v.$invalid) {
-        this.$v.$touch();
+    submitHandler() {
+      if (!this.$v.$invalid) {
+        this.$v.email.$touch();
+        this.$v.password.$touch();
         return;
       }
-      const formData = {
-        email: this.email,
-        password: this.password
-      };
-      try {
-        await this.$store.dispatch("login", formData);
-        this.$router.push("/");
-      } catch (e) {
-        console.log(e);
-      }
+      //const formData = {};
+      // try {
+      //   await this.$store.dispatch("login", formData);
+      //   this.$router.push("/");
+      // } catch (e) {
+      //   console.log(e);
+      // }
+      console.log("dffdfff");
     }
   }
 };
 </script>
+<style lang="scss" scoped>
+.card {
+  min-width: 280px;
+  padding: 10px 20px 10px;
+}
+.btn {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.invalid {
+  border-bottom-color: red;
+}
+.helper-text.invalid {
+  color: red !important;
+}
+@media (min-width: 1000px) {
+  .card {
+    min-width: 380px;
+  }
+}
+</style>
