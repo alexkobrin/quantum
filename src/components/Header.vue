@@ -247,11 +247,9 @@ export default {
   },
   components: {},
   mounted() {
-    setTimeout(() => {
-      M.Dropdown.init(this.$refs.dropdown, {
-        alignment: "center"
-      });
-    }, 0);
+    M.Dropdown.init(this.$refs.dropdown, {
+      alignment: "center"
+    });
   },
   methods: {
     selected(e) {
@@ -273,18 +271,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.navigation {
-  height: 600px;
-}
 .header__nav {
   border-top: none;
 }
 .header-nav {
   border: 2px solid #f5f5f5;
   border-bottom: none;
-}
-.navigation__item {
-  width: 100%;
 }
 
 .cards-wrapper {

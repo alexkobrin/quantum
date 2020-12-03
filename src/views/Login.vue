@@ -47,7 +47,7 @@
           v-else-if="$v.password.$dirty && $v.password.minLength.$invalid"
           class="helper-text invalid"
           >Password should be at least 6 symbols. It is
-          {{ password.length }} symbols</small
+          {{ $v.password.$model.length }} symbols</small
         >
       </div>
     </div>

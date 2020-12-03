@@ -6,6 +6,7 @@ import store from "./store";
 
 import { VuelidatePlugin } from "@vuelidate/core";
 import messagePlagin from "./utils/message.plagin";
+import VueSplide from "@splidejs/vue-splide";
 
 import "materialize-css/dist/js/materialize.min.js";
 
@@ -14,4 +15,5 @@ createApp(App)
   .use(VuelidatePlugin)
   .use(router)
   .use(messagePlagin)
+  .use(VueSplide)
   .mount("#app");

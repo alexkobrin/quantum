@@ -48,7 +48,7 @@
           v-else-if="$v.password.$dirty && $v.password.minLength.$invalid"
           class="helper-text invalid"
           >Password should be at least 6 symbols. It is
-          {{ password.length }} symbols</small
+          {{ $v.password.$model.length }} symbols</small
         >
       </div>
       <div class="input-field">
@@ -132,7 +132,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .card {
-  min-width: 280px;
+  min-width: 310px;
   padding: 10px 20px 10px;
 }
 .btn {
@@ -145,9 +145,13 @@ export default {
 .helper-text.invalid {
   color: red !important;
 }
+.center {
+  min-width: 250px;
+}
 @media (min-width: 1000px) {
   .card {
     min-width: 380px;
+    text-align: center;
   }
 }
 </style>
