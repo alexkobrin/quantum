@@ -20,14 +20,9 @@
             <div class="navigation__item-title">Elektronics</div>
           </div>
           <div class="collapsible-body">
-            <router-link
-              v-for="link in linksElectronik"
-              :key="link.title"
-              :to="link.url"
-              active-class="active"
-            >
+            <div v-for="link in linksElectronik" :key="link.title" class="">
               {{ link.title }}
-            </router-link>
+            </div>
           </div>
         </li>
         <li>
@@ -48,14 +43,9 @@
             <div class="navigation__item-title">Elektronics Apple</div>
           </div>
           <div class="collapsible-body">
-            <div><a href=""> Apple MacBook AIR</a></div>
-            <div><a href=""> Apple MackBook Pro</a></div>
-            <div><a href="">Apple iPad </a></div>
-            <div><a href="">Apple iPad Pro</a></div>
-            <div><a href="">Apple iPad Air</a></div>
-            <div><a href="">Apple TV+</a></div>
-            <div><a href="">Apple Watch Series 3</a></div>
-            <div><a href="">Apple Watch Series 6</a></div>
+            <div v-for="link in linksApple" :key="link.title">
+              {{ link.title }}
+            </div>
           </div>
         </li>
         <li>
@@ -76,7 +66,13 @@
             <div class="navigation__item-title">Cell Phones</div>
           </div>
           <div class="collapsible-body">
-            <span>Lorem ipsum dolor sit amet.</span>
+            <div
+              v-for="link in linksPhone"
+              @click="slectedItem"
+              :key="link.title"
+            >
+              {{ link.title }}
+            </div>
           </div>
         </li>
         <li>
@@ -122,8 +118,40 @@ export default {
         title: "Printer and scanner",
         url: "/register"
       }
+    ],
+    linksApple: [
+      {
+        title: "Apple MacBook AIR",
+        url: "/login"
+      },
+      {
+        title: "Apple MackBook Pro",
+        url: "/login"
+      },
+      {
+        title: "Apple iPad",
+        url: "/login"
+      },
+      {
+        title: "Apple iPad Pro",
+        url: "/login"
+      },
+      {
+        title: "Apple TV+",
+        url: "/login"
+      },
+      {
+        title: "Apple Watch Series 6",
+        url: "/login"
+      }
+    ],
+    linksPhone: [
+      { title: "Smarthone" },
+      { title: "Tablets" },
+      { title: "Acsesoria GSM" }
     ]
   }),
+
   mounted() {
     M.Collapsible.init(this.$refs.collapsible, {
       accordion: false
@@ -135,8 +163,8 @@ export default {
   },
 
   methods: {
-    clickHandler() {
-      this.$refs.svg.classList.toggle("active");
+    slectedItem(e) {
+      console.log(e.target);
     }
   }
 };
@@ -161,9 +189,15 @@ export default {
   background-color: #fff;
   padding: 1rem;
 
-  a {
+  div {
     color: #808080;
     line-height: 3;
+    padding-left: 5px;
+  }
+  div:hover {
+    background-color: #808080;
+    color: #fff;
+    cursor: pointer;
   }
 }
 </style>
