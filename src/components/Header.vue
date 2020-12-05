@@ -279,14 +279,6 @@ export default {
   border-bottom: none;
 }
 
-.cards-wrapper {
-  justify-content: space-between;
-
-  .card {
-    width: 30%;
-  }
-}
-
 .header__search {
   .dropdown-trigger {
     color: #808080;

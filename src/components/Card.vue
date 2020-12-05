@@ -27,31 +27,8 @@
     </div>
     <h4 class="card__title">{{ title }}</h4>
     <div class="card__rating">
-      <img
-        class="card__rating-star"
-        src="../assets/img/icons/star_icon.svg"
-        alt=""
-      />
-      <img
-        class="card__rating-star"
-        src="../assets/img/icons/star_icon.svg"
-        alt=""
-      />
-      <img
-        class="card__rating-star"
-        src="../assets/img/icons/star_icon.svg"
-        alt=""
-      />
-      <img
-        class="card__rating-star"
-        src="../assets/img/icons/star_half_icon.svg"
-        alt=""
-      />
-      <img
-        class="card__rating-star"
-        src="../assets/img/icons/star_border_icon.svg"
-        alt=""
-      />
+      <star-rating :config="configStar"></star-rating>
+
       <div class="card__rating-value">12</div>
     </div>
     <div class="card__footer">
@@ -73,8 +50,22 @@
 </template>
 
 <script>
+import StarRating from "vue-dynamic-star-rating";
 export default {
   name: "Card",
+  data() {
+    return {
+      configStar: {
+        rating: 3.9,
+        style: {
+          fullStarColor: "green",
+          emptyStarColor: "#737373",
+          starWidth: 30,
+          starHeight: 30
+        }
+      }
+    };
+  },
   props: {
     item: {
       type: Object,
@@ -88,10 +79,16 @@ export default {
     title() {
       return this.item.title + " " + this.item.model;
     }
+  },
+  components: {
+    StarRating
   }
 };
 </script>
 <style lang="scss">
+.card {
+  padding: 10px 10px 15px;
+}
 .card__icon-btns {
   margin-left: auto;
 }
@@ -110,5 +107,18 @@ export default {
 }
 .card__header {
   margin-bottom: 1rem;
+}
+.card__title {
+  margin-bottom: 1rem;
+}
+.card__rating-star {
+  margin-bottom: 1rem;
+}
+.card__footer {
+  display: flex;
+  justify-content: space-around;
+}
+.card__rating {
+  height: 30px;
 }
 </style>
