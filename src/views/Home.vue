@@ -43,9 +43,10 @@ export default {
       cellPhones: [
         {
           id: "1",
-          model: "Go ZB452KG",
+          model: "ZS671KS ",
           title: "Asus ZenFone",
-          image: "",
+          image:
+            "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2FAsus%20ZenFone%20ZS671KS%2Fblack%2Fblack%201.png?alt=media&token=08d73beb-d3b9-415d-a17b-26448414a5c2",
           sale: "10",
           price: "384.4",
           color: ["black", "white"],
@@ -56,18 +57,20 @@ export default {
           id: "2",
           model: "P SMART 2021",
           title: "HUAWEI",
-          image: "",
+          image:
+            "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2FHUAWEI%20%20P%20SMART%202021%2Fgreen%2FP%20SMART%202021.png?alt=media&token=43bd3ba6-3e00-44dc-bf2d-3b0aaf10f2f9",
           sale: "5",
           price: "180",
           color: ["green"],
-          rating: "4.5",
+          rating: "4.0",
           totalvote: "18"
         },
         {
           id: "3",
           model: "P 40",
           title: "HUAWEI",
-          image: "",
+          image:
+            "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2FHuawei%20P40%20%2Fblack%2Fp40.png?alt=media&token=ea4e6180-0c95-49e4-8e2b-818fd27767bb",
           sale: "5",
           price: "180",
           color: ["black"],
@@ -78,23 +81,8 @@ export default {
           id: "4",
           model: "Galaxy A51",
           title: "SAMSUNG",
-          image: {
-            black: [
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblack%2Fblack3.png?alt=media&token=290ae671-e9d3-4b6e-a11b-1cefbfcc1cff",
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblack%2Fblack.png?alt=media&token=20c2cbad-1f89-4b63-ada8-7ea71eae9899",
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblack%2Fblack3.png?alt=media&token=290ae671-e9d3-4b6e-a11b-1cefbfcc1cff"
-            ],
-            blue: [
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblue%2Fblue.png?alt=media&token=f4dc9bc4-c804-4799-bd70-0b2d780d5e6b",
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblue%2Fblue2.png?alt=media&token=70c07cce-5a47-439e-902d-631405f93e17",
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblue%2Fblue3.png?alt=media&token=4845f701-8828-44a2-9151-3f841f4178a2"
-            ],
-            white: [
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fwhite%2Fwhite.png?alt=media&token=a958533b-4231-48e0-9b14-a92594aee8ca",
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fwhite%2Fwhite2.png?alt=media&token=23c9337d-bc5a-4e9f-94b5-8f28564c7b73",
-              "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fwhite%2Fwhite3.png?alt=media&token=b521ebee-b29b-4fce-b894-04095f1fb3c9"
-            ]
-          },
+          image:
+            "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblack%2Fblack.png?alt=media&token=20c2cbad-1f89-4b63-ada8-7ea71eae9899",
           sale: "",
           price: "459",
           color: ["black", "white", "blue"],
@@ -103,6 +91,9 @@ export default {
         }
       ]
     };
+  },
+  mounted() {
+    console.log(this.$store.state.info.hello);
   },
   components: {
     Slider,

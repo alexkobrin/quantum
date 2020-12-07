@@ -247,9 +247,9 @@ export default {
   },
   components: {},
   mounted() {
-    M.Dropdown.init(this.$refs.dropdown, {
-      alignment: "center"
-    });
+    // M.Dropdown.init(this.$refs.dropdown, {
+    //   alignment: "center",
+    // });
   },
   methods: {
     selected(e) {

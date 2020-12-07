@@ -20,19 +20,28 @@
     </div>
     <!-- // card__header -->
     <div class="card__img">
-      <img
-        src="https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblack%2Fblack.png?alt=media&token=20c2cbad-1f89-4b63-ada8-7ea71eae9899"
-        alt="Asus ZenFone Go ZB452KG (black and white)"
-      />
+      <img :src="item.image" alt="Asus ZenFone Go ZB452KG (black and white)" />
     </div>
-    <h4 class="card__title">{{ title }}</h4>
-    <div class="card__rating">
-      <star-rating :config="configStar"></star-rating>
+    <router-link to="/item.page"
+      ><h4 class="card__title">{{ title }}</h4></router-link
+    >
 
-      <div class="card__rating-value">12</div>
+    <div class="card__rating">
+      <star-rating
+        :star-size="25"
+        :increment="0.5"
+        :rating="item.rating"
+      ></star-rating>
+      /{{ item.totalvote }}
     </div>
     <div class="card__footer">
-      <div class="card__price">$ 384.4</div>
+      <div
+        class="card__price"
+        :style="item.sale ? { textDecoration: 'line-through' } : null"
+      >
+        ${{ item.price }}
+      </div>
+      <div v-if="item.sale" class="card__price-discont">${{ discont }}</div>
       <button class="card__cart">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,21 +59,16 @@
 </template>
 
 <script>
-import StarRating from "vue-dynamic-star-rating";
+import StarRating from "vue-star-rating";
 export default {
   name: "Card",
   data() {
-    return {
-      configStar: {
-        rating: 3.9,
-        style: {
-          fullStarColor: "green",
-          emptyStarColor: "#737373",
-          starWidth: 30,
-          starHeight: 30
-        }
-      }
-    };
+    return {};
+  },
+  methods: {
+    setRating(rating) {
+      this.rating = rating;
+    }
   },
   props: {
     item: {
@@ -72,14 +76,17 @@ export default {
       required: true
     }
   },
-  mounted() {
-    console.log(this.item.id);
-  },
+  mounted() {},
   computed: {
     title() {
       return this.item.title + " " + this.item.model;
+    },
+    discont() {
+      let discont = (this.item.price * this.item.sale) / 100;
+      return this.item.price - discont;
     }
   },
+
   components: {
     StarRating
   }
@@ -110,6 +117,9 @@ export default {
 }
 .card__title {
   margin-bottom: 1rem;
+  &:hover {
+    color: blue;
+  }
 }
 .card__rating-star {
   margin-bottom: 1rem;
@@ -120,5 +130,13 @@ export default {
 }
 .card__rating {
   height: 30px;
+}
+.star-rating {
+  width: 100%;
+  height: 100%;
+}
+.card__price-discont {
+  color: red;
+  font-weight: 700;
 }
 </style>
