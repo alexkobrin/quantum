@@ -19,6 +19,12 @@ const routes = [
     name: "Home",
     meta: { layout: "main" },
     component: () => import("../views/Home.vue")
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    meta: { layout: "main" },
+    component: () => import("../views/Cart.vue")
   }
 ];
 

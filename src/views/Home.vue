@@ -34,7 +34,6 @@
         </div>
       </div>
     </main>
-    <CartItem />
   </div>
 </template>
 
@@ -42,7 +41,6 @@
 import Slider from "../components/Slider";
 import Aside from "../components/Aside";
 import Card from "../components/Card";
-import CartItem from "../components/CartItem";
 
 export default {
   data() {
@@ -66,8 +64,7 @@ export default {
   components: {
     Slider,
     Aside,
-    Card,
-    CartItem
+    Card
   }
 };
 </script>
