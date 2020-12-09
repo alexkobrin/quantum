@@ -22,9 +22,11 @@
     <div class="card__img">
       <img :src="item.image" alt="Asus ZenFone Go ZB452KG (black and white)" />
     </div>
-    <router-link to="/item.page"
-      ><h4 class="card__title">{{ title }}</h4></router-link
-    >
+    <!-- <router-link to="/item.page" >-->
+
+    <h4 @click="activeItem(item)" class="card__title">{{ title }}</h4>
+    <!-- </router-link
+    > -->
 
     <div class="card__rating">
       <star-rating
@@ -44,6 +46,7 @@
       <div v-if="item.sale" class="card__price-discont">${{ discont }}</div>
       <button class="card__cart">
         <svg
+          @click="selectedItem"
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
@@ -68,6 +71,12 @@ export default {
   methods: {
     setRating(rating) {
       this.rating = rating;
+    },
+    activeItem(item) {
+      this.$emit("activeitem", item);
+    },
+    selectedItem() {
+      this.$store.dispatch("addCount");
     }
   },
   props: {

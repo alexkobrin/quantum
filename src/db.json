@@ -4,6 +4,6 @@
       {"id":"2", "model":"P SMART 2021", "title" : "HUAWEI" , "image": "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2FHUAWEI%20%20P%20SMART%202021%2Fgreen%2FP%20SMART%202021.png?alt=media&token=43bd3ba6-3e00-44dc-bf2d-3b0aaf10f2f9", "sale" : "5", "price": "180", "color": [ "green"] , "rating" : "4.0", "totalvote": "18"},
       {"id":"3", "model":"P 40", "title" : "HUAWEI" , "image": "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2FHuawei%20P40%20%2Fblack%2Fp40.png?alt=media&token=ea4e6180-0c95-49e4-8e2b-818fd27767bb", "sale" : "5", "price": "180", "color": [ "black"] , "rating" : "4.5", "totalvote": "18"},
       {"id":"4", "model":"Galaxy A51", "title" : "SAMSUNG" , "image": "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsamsung%20Galaxy%20A51%2Fblack%2Fblack.png?alt=media&token=20c2cbad-1f89-4b63-ada8-7ea71eae9899", "sale" : "", "price": "459", "color": [ "black" , "white" , "blue"] , "rating" : "4.5", "totalvote": "18"}
-    ],
-  "electronics": {}
+    ]
+   
 } 

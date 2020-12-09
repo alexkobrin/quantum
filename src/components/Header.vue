@@ -82,7 +82,9 @@
               />
             </svg>
           </span>
-          <span class="header-link__text">2 Items</span>
+          <span v-if="$store.getters.getItemsCount" class="header-link__text"
+            >{{ $store.getters.getItemsCount }} Items</span
+          >
         </a>
 
         <!-- wishlist-link -->

@@ -1,11 +1,8 @@
-//import firebase from "firebase"
+import firebase from "firebase";
 
 export default {
   state: {
-    info: {},
-    hello: {
-      count: 1
-    }
+    info: {}
   },
   mutations: {
     setInfo(state, info) {
@@ -15,8 +12,24 @@ export default {
       state.info = {};
     }
   },
-  actions: {},
+  actions: {
+    async fetchInfo({ dispatch, commit }) {
+      try {
+        const info = (
+          await firebase
+            .database()
+            .ref(`/cellPhones`)
+            .once("value")
+        ).val();
+        commit("setInfo", info);
+        return info;
+      } catch (e) {
+        commit("setError", e);
+        throw e;
+      }
+    }
+  },
   getters: {
-    info: s => s.info
+    getInfo: s => s.info
   }
 };
