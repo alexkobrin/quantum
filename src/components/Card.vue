@@ -46,7 +46,7 @@
       <div v-if="item.sale" class="card__price-discont">${{ discont }}</div>
       <button class="card__cart">
         <svg
-          @click="selectedItem"
+          @click="selectedItem(item)"
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
@@ -75,8 +75,8 @@ export default {
     activeItem(item) {
       this.$emit("activeitem", item);
     },
-    selectedItem() {
-      this.$store.dispatch("addCount");
+    selectedItem(item) {
+      this.$store.dispatch("addSelectedItemToCart", item);
     }
   },
   props: {

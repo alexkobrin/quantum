@@ -1,30 +1,44 @@
 <template>
   <div>
-    <!-- <loader
-      object="#ff9633"
-      color1="#ffffff"
-      color2="#17fd3d"
-      size="6"
-      speed="3.6"
-      bg="#343a40"
-      objectbg="#999793"
-      opacity="80"
-      disableScrolling="false"
-      name="spinning"
-    ></loader> -->
     <div class="cart-item">
       <div class="cart-item__inner">
-        <div class="cart-item__img"><img src="" alt="" /></div>
+        <div class="cart-item__img"><img :src="item.image" alt="" /></div>
         <div class="cart-item__title">
-          <h4></h4>
+          <h4>{{ item.title }}</h4>
+          <p class="model">Model: {{ item.model }}</p>
         </div>
-        <div class="cart-item__info">
-          <p>Some text</p>
+
+        <button
+          @click="decrement"
+          :class="{ disabledBtn: item.quantity == 1 }"
+          class="cart-item__btn waves-effect waves-orange"
+        >
+          -
+        </button>
+
+        <div class="cart-item__qtn">
+          <span>Quantity: {{ item.quantity }} </span>
         </div>
-        <div class="cart-item__price">$39.00</div>
+
+        <button
+          @click="increment"
+          class="cart-item__btn waves-effect waves-orange"
+        >
+          +
+        </button>
+
+        <div class="cart-item__price">{{ item.price }}$</div>
+        <button
+          @click="deleteFromCart"
+          class="delete-btn waves-effect waves-orange"
+        >
+          Delete
+        </button>
       </div>
       <div class="cart-item__all">
-        <h4>Price with shipping $ 39.00</h4>
+        <h4>
+          Price with <span>sale {{ item.sale }}% </span> {{ discont }}$
+        </h4>
       </div>
     </div>
   </div>
@@ -32,24 +46,36 @@
 
 <script>
 export default {
-  name: "Cart",
+  name: "CartItem",
   data() {
-    return {
-      itemCart: {},
-      loading: true
-    };
+    return {};
   },
+
   props: {
     item: {
       type: Object,
       required: true
     }
   },
-  mounted() {
-    setTimeout(() => {
-      this.$props.item = this.itemCart;
-      this.loading = false;
-    }, 3000);
+  methods: {
+    increment() {
+      this.$emit("increment-qtn");
+    },
+    decrement() {
+      this.$emit("decrement-qtn");
+    },
+    deleteFromCart() {
+      this.$emit("delete-from-cart");
+    }
+  },
+  mounted() {},
+  computed: {
+    discont() {
+      let discont = (this.item.price * this.item.sale) / 100;
+      return Math.round(
+        (this.item.price - discont) * this.item.quantity
+      ).toFixed(2);
+    }
   },
   components: {}
 };
@@ -64,7 +90,7 @@ export default {
   margin: 16px auto;
 }
 .cart-item__img {
-  width: 150px;
+  width: 200px;
   height: 220px;
   img {
     width: 100%;
@@ -77,6 +103,7 @@ export default {
   font-weight: 500;
   line-height: 1.43;
   color: #666666;
+  width: 200px;
 }
 .cart-item__inner {
   display: flex;
@@ -87,12 +114,45 @@ export default {
   margin-bottom: 20px;
   align-items: center;
 }
+.disabledBtn {
+  cursor: not-allowed !important;
+  background-color: #fff !important;
+}
+
+.model {
+  margin-top: 1rem;
+}
+.cart-item__btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #bdbdbd;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+}
+.delete-btn {
+  width: 60px;
+  height: 40px;
+  border-radius: 10%;
+  border: none;
+  margin-left: 2rem;
+  background-color: #bdbdbd;
+  color: #fff;
+}
 .cart-item__all {
   h4 {
     text-align: right;
     font-size: 14px;
     font-weight: 500;
     line-height: 1.43;
+    margin-bottom: 1rem;
+    span {
+      color: red;
+
+      text-transform: uppercase;
+    }
   }
 }
 </style>

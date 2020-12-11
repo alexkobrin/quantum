@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__container">
       <div class="header__logo">
-        <div class="logo">QUANTUM</div>
+        <router-link to="/"> <div class="logo">QUANTUM</div></router-link>
       </div>
       <form class="header__search" @submit.prevent="submitHandler">
         <div class="header__search-input-wrapper">
@@ -69,7 +69,7 @@
       </form>
       <div class="header__links">
         <!-- cart-link -->
-        <a href="#" class="header-link header-link--notify">
+        <router-link to="/cart" class="header-link header-link--notify">
           <span class="header-link__icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,10 +82,10 @@
               />
             </svg>
           </span>
-          <span v-if="$store.getters.getItemsCount" class="header-link__text"
-            >{{ $store.getters.getItemsCount }} Items</span
+          <span v-if="$store.getters.getCart.length" class="header-link__text"
+            >{{ $store.getters.getCart.length }} Items</span
           >
-        </a>
+        </router-link>
 
         <!-- wishlist-link -->
         <a href="#" class="header-link">
