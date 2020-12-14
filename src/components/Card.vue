@@ -92,7 +92,7 @@ export default {
     },
     discont() {
       let discont = (this.item.price * this.item.sale) / 100;
-      return this.item.price - discont;
+      return Math.round(this.item.price - discont).toFixed(2);
     }
   },
 

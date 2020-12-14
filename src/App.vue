@@ -14,6 +14,15 @@ export default {
       return (this.$route.meta.layout || "empty") + "-layout";
     }
   },
+  mounted() {
+    // window.addEventListener("resize", function () {
+    //   if (window.innerWidth > 767) {
+    //     console.log("Desktop");
+    //   } else {
+    //     console.log("mobile");
+    //   }
+    // });
+  },
   methods: {}
 };
 </script>

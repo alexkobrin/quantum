@@ -31,4 +31,5 @@ createApp(App)
   .use(messagePlagin)
   .use(VueSplide)
   .use(loader)
+
   .mount("#app");

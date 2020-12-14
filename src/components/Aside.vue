@@ -20,7 +20,12 @@
             <div class="navigation__item-title">Elektronics</div>
           </div>
           <div class="collapsible-body">
-            <div v-for="link in linksElectronik" :key="link.title" class="">
+            <div
+              v-for="link in linksElectronik"
+              @click="selectedSection(link.nameSection)"
+              :key="link.title"
+              class=""
+            >
               {{ link.title }}
             </div>
           </div>
@@ -43,7 +48,11 @@
             <div class="navigation__item-title">Elektronics Apple</div>
           </div>
           <div class="collapsible-body">
-            <div v-for="link in linksApple" :key="link.title">
+            <div
+              v-for="link in linksApple"
+              @click="selectedSection(link.nameSection)"
+              :key="link.title"
+            >
               {{ link.title }}
             </div>
           </div>
@@ -68,7 +77,7 @@
           <div class="collapsible-body">
             <div
               v-for="link in linksPhone"
-              @click="slectedItem"
+              @click="selectedSection(link.nameSection)"
               :key="link.title"
             >
               {{ link.title }}
@@ -146,9 +155,9 @@ export default {
       }
     ],
     linksPhone: [
-      { title: "Smarthone" },
-      { title: "Tablets" },
-      { title: "Acsesoria GSM" }
+      { title: "Smartphones", nameSection: "smartphones" },
+      { title: "Tablets", nameSection: "tablets" },
+      { title: "Acsesoria GSM", nameSection: "accesoriaGSM" }
     ]
   }),
 
@@ -163,8 +172,8 @@ export default {
   },
 
   methods: {
-    slectedItem(e) {
-      console.log(e.target);
+    selectedSection(nameSection) {
+      this.$emit("selected-section", nameSection);
     }
   }
 };
@@ -185,6 +194,7 @@ export default {
     rotate: 90deg;
   }
 }
+
 .collapsible-body {
   background-color: #fff;
   padding: 1rem;

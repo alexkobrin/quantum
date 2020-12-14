@@ -13,12 +13,12 @@ export default {
     }
   },
   actions: {
-    async fetchInfo({ dispatch, commit }) {
+    async fetchInfo({ dispatch, commit }, itemName) {
       try {
         const info = (
           await firebase
             .database()
-            .ref(`/cellPhones`)
+            .ref(`/${itemName}`)
             .once("value")
         ).val();
         commit("setInfo", info);
