@@ -14,35 +14,8 @@
         <div class="main__row">
           <Aside @selected-section="selectedSection" />
           <div class="main__column-right">
-            <!-- tabs plate -->
-            <div class="tabs">
-              <div class="filter-item">
-                <ul class="collapsible">
-                  <li>
-                    <div class="collapsible-header">First</div>
-                    <div class="collapsible-body">
-                      <span>Lorem ipsum dolor sit amet.</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+            <Filters />
 
-              <div class="filters">
-                <div class="filter-range">
-                  <vue-slider
-                    v-model="rangePrice"
-                    :min="0"
-                    :max="2000"
-                    :interval="0.5"
-                    :tooltip="'always'"
-                    :tooltip-formatter="formatter2"
-                  >
-                  </vue-slider>
-                </div>
-              </div>
-            </div>
-
-            <!-- cards-wrapper -->
             <div class="cards-wrapper">
               <loader
                 v-if="loading"
@@ -76,22 +49,21 @@
 import Slider from "../components/Slider";
 import Aside from "../components/Aside";
 import Card from "../components/Card";
-import VueSlider from "vue-slider-component";
+
+import Filters from "../components/Filters";
 import "vue-slider-component/theme/default.css";
 
 export default {
   data() {
     return {
       dataItem: [],
-      loading: true,
-      rangePrice: [0, 800],
-      formatter2: v => `$${("" + v).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+      loading: false
     };
   },
 
   async mounted() {
-    this.cellPhones = await this.$store.dispatch("fetchInfo");
-    this.loading = false;
+    // this.cellPhones = await this.$store.dispatch("fetchInfo");
+    // this.loading = false;
   },
 
   methods: {
@@ -111,7 +83,8 @@ export default {
     Slider,
     Aside,
     Card,
-    VueSlider
+
+    Filters
   }
 };
 </script>
@@ -122,14 +95,5 @@ export default {
   .card {
     min-width: 29%;
   }
-}
-.tabs {
-  height: 80px;
-}
-.filter-range {
-  margin: 30px;
-  width: 220px;
-  text-align: center;
-  position: relative;
 }
 </style>
