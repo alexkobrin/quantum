@@ -249,13 +249,14 @@ export default {
   },
   components: {},
   mounted() {
-    // M.Dropdown.init(this.$refs.dropdown, {
-    //   alignment: "center",
-    // });
+    M.Dropdown.init(this.$refs.dropdown, {
+      alignment: "center"
+    });
   },
   methods: {
     selected(e) {
       this.dropdownSelected = e.target.attributes["data"].value.toUpperCase();
+      console.log(this.dropdownSelected.toLowerCase());
     },
     selectedCurrency(e) {
       this.currencySelected = e.target.innerText.toUpperCase();

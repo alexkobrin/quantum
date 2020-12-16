@@ -16,8 +16,17 @@
           <div class="main__column-right">
             <!-- tabs plate -->
             <div class="tabs">
-              <button class="tabs__btn tabs__btn--active">Most Popular</button>
-              <button class="tabs__btn">My communities</button>
+              <div class="filter-item">
+                <ul class="collapsible">
+                  <li>
+                    <div class="collapsible-header">First</div>
+                    <div class="collapsible-body">
+                      <span>Lorem ipsum dolor sit amet.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
               <div class="filters">
                 <div class="filter-range">
                   <vue-slider
