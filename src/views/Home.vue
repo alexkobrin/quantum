@@ -14,7 +14,7 @@
         <div class="main__row">
           <Aside @selected-section="selectedSection" />
           <div class="main__column-right">
-            <Filters />
+            <Filters @filter-category="filterCategory" />
 
             <div class="cards-wrapper">
               <loader
@@ -75,6 +75,18 @@ export default {
       this.loading = true;
       this.dataItem = await this.$store.dispatch("fetchInfo", itemTitle);
       this.loading = false;
+    },
+    async filterCategory(arrItem) {
+      this.loading = true;
+      for (let i = 0; i < arrItem.length; i++) {
+        let result = await this.$store.dispatch("fetchInfo", arrItem[i]);
+        if (result == null) {
+          this.loading = false;
+        } else {
+          result.map(item => this.dataItem.push(item));
+          this.loading = false;
+        }
+      }
     }
   },
   watch: {},

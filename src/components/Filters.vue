@@ -54,9 +54,9 @@
         <div class="filter-colors">
           <ul ref="colorFilter" class="collapsible">
             <li>
-              <div @click="rotateIcon2" class="collapsible-header">
+              <div @click="rotateIcon" class="collapsible-header">
                 Color
-                <i ref="iconArrow2" class="material-icons">arrow_drop_up</i>
+                <i ref="iconArrow" class="material-icons">arrow_drop_up</i>
               </div>
               <div class="collapsible-body">
                 <form ref="form">
@@ -67,7 +67,7 @@
                     </label>
                   </p>
                   <button
-                    @click.prevent="applyFilter"
+                    @click.prevent="applyColorFilter"
                     class="btn waves-effect applyFilter"
                     type="submit"
                   >
@@ -95,9 +95,9 @@
         <div class="filter-item sort">
           <ul ref="sortByFilter" class="collapsible">
             <li>
-              <div @click="rotateIcon3" class="collapsible-header">
+              <div @click="rotateIcon" class="collapsible-header">
                 Sort By
-                <i ref="iconArrow3" class="material-icons">arrow_drop_up</i>
+                <i ref="iconArrow" class="material-icons">arrow_drop_up</i>
               </div>
               <div class="collapsible-body">
                 <p v-for="(item, idx) in sortBy" :key="idx">
@@ -113,9 +113,9 @@
         <div class="filter-materials">
           <ul ref="materialFilter" class="collapsible">
             <li>
-              <div @click="rotateIcon5" class="collapsible-header">
+              <div @click="rotateIcon" class="collapsible-header">
                 Material
-                <i ref="iconArrow5" class="material-icons">arrow_drop_up</i>
+                <i ref="iconArrow" class="material-icons">arrow_drop_up</i>
               </div>
               <div class="collapsible-body">
                 <form ref="form">
@@ -214,18 +214,20 @@ export default {
     });
   },
   methods: {
-    applyFilter() {
-      let filt = this.filterCategories
-        .filter(itm => itm.checked)
-        .map(name => name.title);
-      console.log(filt);
-    },
     clearfilter() {
       for (let i = 0; i < this.filterCategories.length; i++) {
         if (this.filterCategories[i].checked) {
           this.filterCategories[i].checked = false;
         }
       }
+    },
+    applyFilter(item) {
+      let filt = this.filterCategories
+        .filter(itm => itm.checked)
+        .map(name => name.title.toLowerCase().replace(/\s/g, ""));
+      this.$emit("filter-category", filt);
+      M.Collapsible.getInstance(this.$refs.categoryFilter).close();
+      this.clearfilter();
     },
     clearfilterColor() {
       for (let i = 0; i < this.colors.length; i++) {
@@ -241,32 +243,11 @@ export default {
         }
       }
     },
-    rotateIcon() {
-      if (this.$refs.iconArrow.style.rotate != "180deg") {
-        this.$refs.iconArrow.style = "rotate: 180deg";
+    rotateIcon(e) {
+      if (e.target.firstElementChild.style.rotate !== "180deg") {
+        e.target.firstElementChild.style = "rotate : 180deg";
       } else {
-        this.$refs.iconArrow.style = "rotate: 0deg";
-      }
-    },
-    rotateIcon2() {
-      if (this.$refs.iconArrow2.style.rotate != "180deg") {
-        this.$refs.iconArrow2.style = "rotate: 180deg";
-      } else {
-        this.$refs.iconArrow2.style = "rotate: 0deg";
-      }
-    },
-    rotateIcon3() {
-      if (this.$refs.iconArrow3.style.rotate != "180deg") {
-        this.$refs.iconArrow3.style = "rotate: 180deg";
-      } else {
-        this.$refs.iconArrow3.style = "rotate: 0deg";
-      }
-    },
-    rotateIcon5() {
-      if (this.$refs.iconArrow5.style.rotate != "180deg") {
-        this.$refs.iconArrow5.style = "rotate: 180deg";
-      } else {
-        this.$refs.iconArrow5.style = "rotate: 0deg";
+        e.target.firstElementChild.style = "rotate : 0deg";
       }
     },
     moreFilters() {
