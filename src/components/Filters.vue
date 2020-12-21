@@ -47,6 +47,7 @@
               :interval="0.5"
               :tooltip="'always'"
               :tooltip-formatter="formatter2"
+              @click="applyPriceFilter"
             >
             </vue-slider>
           </div>
@@ -221,12 +222,23 @@ export default {
         }
       }
     },
-    applyFilter(item) {
+    applyFilter() {
       let filt = this.filterCategories
         .filter(itm => itm.checked)
         .map(name => name.title.toLowerCase().replace(/\s/g, ""));
       this.$emit("filter-category", filt);
       M.Collapsible.getInstance(this.$refs.categoryFilter).close();
+      this.clearfilter();
+    },
+    applyPriceFilter() {
+      this.$emit("apply-price-filter", this.rangePrice);
+    },
+    applyColorFilter() {
+      let filteredColors = this.colors
+        .filter(itm => itm.checked)
+        .map(name => name.title.toLowerCase().replace(/\s/g, ""));
+      this.$emit("color-filter", filteredColors);
+      M.Collapsible.getInstance(this.$refs.colorFilter).close();
       this.clearfilter();
     },
     clearfilterColor() {

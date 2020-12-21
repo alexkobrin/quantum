@@ -14,7 +14,11 @@
         <div class="main__row">
           <Aside @selected-section="selectedSection" />
           <div class="main__column-right">
-            <Filters @filter-category="filterCategory" />
+            <Filters
+              @filter-category="filterCategory"
+              @apply-price-filter="applyPriceFilter"
+              @color-filter="coloredFilters"
+            />
 
             <div class="cards-wrapper">
               <loader
@@ -32,7 +36,7 @@
               <!-- card -->
               <Card
                 v-else
-                v-for="item in dataItem"
+                v-for="item in filteredItem"
                 @activeitem="currentItem"
                 :key="item.id"
                 :item="item"
@@ -57,6 +61,7 @@ export default {
   data() {
     return {
       dataItem: [],
+      filteredItem: [],
       loading: false
     };
   },
@@ -74,19 +79,64 @@ export default {
     async selectedSection(itemTitle) {
       this.loading = true;
       this.dataItem = await this.$store.dispatch("fetchInfo", itemTitle);
+
+      this.filteredItem = this.dataItem;
       this.loading = false;
     },
     async filterCategory(arrItem) {
       this.loading = true;
+
+      if (arrItem.length === 0) {
+        this.loading = false;
+        this.dataItem = [];
+      }
+      let filterArray = [];
       for (let i = 0; i < arrItem.length; i++) {
         let result = await this.$store.dispatch("fetchInfo", arrItem[i]);
-        if (result == null) {
-          this.loading = false;
-        } else {
-          result.map(item => this.dataItem.push(item));
-          this.loading = false;
-        }
+        result.map(item => {
+          filterArray.push(item);
+        });
+        this.dataItem = [];
+        this.dataItem = filterArray;
+        this.loading = false;
       }
+      this.filteredItem = this.dataItem;
+    },
+    applyPriceFilter(arr) {
+      this.loading = true;
+      this.filteredItem = [...this.dataItem];
+      let lowerPrice = arr[0];
+      let highPrice = arr[1];
+      let priceRange = this.filteredItem.filter(item => {
+        if (item.sale != null) {
+          let discount = (item.price * item.sale) / 100;
+
+          return (
+            item.price - discount >= lowerPrice &&
+            item.price - discount <= highPrice
+          );
+        } else {
+          return item.price >= lowerPrice && item.price <= highPrice;
+        }
+      });
+      this.filteredItem = priceRange;
+      this.loading = false;
+    },
+    coloredFilters(arr) {
+      this.loading = true;
+      if (arr.length === 0) {
+        this.loading = false;
+      }
+      let filteredColorsItem = [];
+      for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+        filteredColorsItem = this.dataItem.filter(item =>
+          item.color.includes(arr[i])
+        );
+      }
+      this.filteredItem = filteredColorsItem;
+      console.log(filteredColorsItem);
+      this.loading = false;
     }
   },
   watch: {},

@@ -157,7 +157,7 @@ export default {
     linksPhone: [
       { title: "Smartphones", nameSection: "smartphones" },
       { title: "Tablets", nameSection: "tablets" },
-      { title: "Acsesoria GSM", nameSection: "accesoriaGSM" }
+      { title: "Acsesoria GSM", nameSection: "acsesoriagsm" }
     ]
   }),
 
