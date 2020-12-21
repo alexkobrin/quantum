@@ -19,14 +19,15 @@
       </div>
     </div>
     <!-- // card__header -->
-    <div class="card__img">
-      <img :src="item.image" alt="Asus ZenFone Go ZB452KG (black and white)" />
-    </div>
-    <!-- <router-link to="/item.page" >-->
+    <router-link to="/product-page" @click="activeItem(item)"
+      ><div class="card__img">
+        <img
+          :src="item.image"
+          alt="Asus ZenFone Go ZB452KG (black and white)"
+        /></div
+    ></router-link>
 
-    <h4 @click="activeItem(item)" class="card__title">{{ title }}</h4>
-    <!-- </router-link
-    > -->
+    <h4 class="card__title">{{ title }}</h4>
 
     <div class="card__rating">
       <star-rating
@@ -73,7 +74,7 @@ export default {
       this.rating = rating;
     },
     activeItem(item) {
-      this.$emit("activeitem", item);
+      this.$store.dispatch("addedSelectedItem", item);
     },
     selectedItem(item) {
       this.$store.dispatch("addSelectedItemToCart", item);
@@ -126,6 +127,7 @@ export default {
 }
 .card__title {
   margin-bottom: 1rem;
+
   &:hover {
     color: blue;
   }

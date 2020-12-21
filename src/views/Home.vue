@@ -37,7 +37,6 @@
               <Card
                 v-else
                 v-for="item in filteredItem"
-                @activeitem="currentItem"
                 :key="item.id"
                 :item="item"
               />
@@ -66,15 +65,11 @@ export default {
     };
   },
 
-  async mounted() {
-    // this.cellPhones = await this.$store.dispatch("fetchInfo");
-    // this.loading = false;
-  },
+  async mounted() {},
 
   methods: {
-    currentItem(item) {
-      const currentItem = [item];
-      const newItem = currentItem ? { ...currentItem, item } : null;
+    activeItem(item) {
+      console.log("hee");
     },
     async selectedSection(itemTitle) {
       this.loading = true;
