@@ -14,13 +14,11 @@ export const IMAGE_URL = "https://source.unsplash.com/random/800x450";
  * @return {Object} - An object containing data of sample images.
  */
 
-export function createSlides(length = 10, sig = 0) {
-  return Array.apply(null, Array(length)).map((value, index) => {
-    index = sig || index;
-    console.log($store.getters);
-    return {
-      src: `${IMAGE_URL}?sig=${index}`,
-      alt: `Image ${index}`
-    };
-  });
-}
+return Array.apply(null, Array(length)).map((value, index) => {
+  index = sig || index;
+
+  return {
+    src: `${IMAGE_URL}?sig=${index}`,
+    alt: `Image ${index}`
+  };
+});
