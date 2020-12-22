@@ -68,9 +68,6 @@ export default {
   async mounted() {},
 
   methods: {
-    activeItem(item) {
-      console.log("hee");
-    },
     async selectedSection(itemTitle) {
       this.loading = true;
       this.dataItem = await this.$store.dispatch("fetchInfo", itemTitle);

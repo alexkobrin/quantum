@@ -19,8 +19,8 @@
       </div>
     </div>
     <!-- // card__header -->
-    <router-link to="/product-page" @click="activeItem(item)"
-      ><div class="card__img">
+    <router-link to="/product"
+      ><div @click="activeItem(item)" class="card__img">
         <img
           :src="item.image"
           alt="Asus ZenFone Go ZB452KG (black and white)"

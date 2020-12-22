@@ -14,7 +14,6 @@ import "materialize-css/dist/js/materialize.min.js";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
-
 firebase.initializeApp({
   apiKey: "AIzaSyC1poeyjxwkn2trvaoAGOd50O9EF0ddMmw",
   authDomain: "quantum-market.firebaseapp.com",

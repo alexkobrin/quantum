@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-//import Home from "../views/Home.vue";
 
 const routes = [
   {
@@ -25,6 +24,12 @@ const routes = [
     name: "Cart",
     meta: { layout: "main" },
     component: () => import("../views/Cart.vue")
+  },
+  {
+    path: "/product",
+    name: "Product",
+    meta: { layout: "main" },
+    component: () => import("../views/ProductPage.vue")
   }
 ];
 
