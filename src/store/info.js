@@ -3,7 +3,21 @@ import firebase from "firebase";
 export default {
   state: {
     info: {},
-    productPageItem: {}
+    productPageItem: {
+      id: "smarthone_1",
+      part: "smartphone",
+      model: "ZS671KS ",
+      title: "Asus ZenFone",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/quantum-market.appspot.com/o/image%2Fsmartphone%2Fsmarthone_1%2Fblack%2Fblack%201.png?alt=media&token=df1d8473-e8a4-4963-a27b-7c98fb80b9f2",
+      quantity: 1,
+      sale: 10,
+      price: 384.4,
+      color: ["black", "white"],
+      rating: 5,
+      totalvote: 10
+    },
+    sliderImage: []
   },
   mutations: {
     setInfo(state, info) {
@@ -14,6 +28,9 @@ export default {
     },
     setSelectedItem(state, info) {
       state.productPageItem = info;
+    },
+    setSliderImage(state, imageArray) {
+      state.sliderImage = imageArray;
     }
   },
   actions: {
@@ -34,10 +51,14 @@ export default {
     },
     addedSelectedItem({ commit }, selectedItem) {
       commit("setSelectedItem", selectedItem);
+    },
+    addedSliderImage({ commit }, imageArray) {
+      commit("setSliderImage", imageArray);
     }
   },
   getters: {
     getInfo: s => s.info,
-    getItem: s => s.productPageItem
+    getItem: s => s.productPageItem,
+    getSliderImage: s => s.sliderImage
   }
 };

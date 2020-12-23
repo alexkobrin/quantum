@@ -11,6 +11,7 @@
 <script>
 import SliderProduct from "../components/SliderProduct.vue";
 import { mapGetters } from "vuex";
+import firebase from "firebase";
 export default {
   name: "ProductPage",
   computed: {
@@ -38,5 +39,8 @@ export default {
     max-width: 530px;
     object-fit: cover;
   }
+}
+.splide {
+  margin-bottom: 0.5rem;
 }
 </style>

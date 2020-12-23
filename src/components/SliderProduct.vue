@@ -1,5 +1,9 @@
 <template>
-  <h2 class="center" @click="fetchImage">Try me</h2>
+  <h2 class="center" @click="fetchSliderImages">Try me</h2>
+  <div v-for="slide in slides" :key="slide.src">{{ slide.src }}</div>
+
+  f
+
   <splide :options="primaryOptions" ref="primary">
     <splide-slide v-for="slide in slides" :key="slide.src">
       <img :src="slide.src" alt="slide.alt" />
@@ -7,8 +11,8 @@
   </splide>
 
   <splide :options="secondaryOptions" ref="secondary">
-    <splide-slide v-for="slide in slides" :key="slide.src">
-      <img :src="slide.src" alt="slide.alt" />
+    <splide-slide v-for="(slide, idx) in slides" :key="idx">
+      <img :src="slide.src" alt=" " />
     </splide-slide>
   </splide>
 </template>
@@ -16,11 +20,14 @@
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import { createSlides } from "../utils/slides";
-
+import { mapGetters } from "vuex";
 import firebase from "firebase";
 
 export default {
   name: "Slider",
+  computed: {
+    ...mapGetters(["getSliderImage", "getItem"])
+  },
   data() {
     return {
       primaryOptions: {
@@ -49,54 +56,39 @@ export default {
         updateOnMove: true
       },
       slides: createSlides(),
+
       count: 0
     };
   },
+
+  methods: {
+    fetchSliderImages() {
+      let storageRef = firebase.storage().ref();
+      let listRef = storageRef.child(
+        `image/${this.getItem.part}/${this.getItem.id}/${this.getItem.color[0]}`
+      );
+      let array = [];
+      listRef.listAll().then(async function(res) {
+        for (let i = 0; i < res.items.length; i++) {
+          let path = await res.items[i].getDownloadURL();
+          array.push({
+            src: path
+          });
+        }
+      });
+      this.$store.dispatch("addedSliderImage", array);
+    }
+  },
   mounted() {
-    console.log(createSlides());
+    this.fetchSliderImages();
+
     this.$refs.primary.sync(this.$refs.secondary.splide);
   },
-  methods: {
-    // async fetchImage() {
-    //   let storageRef = firebase.storage().ref();
-    //   let listRef = storageRef.child("image/smartphone/Asus ZenFone ZS671KS/black");
-    //   listRef
-    //     .listAll()
-    //     .then(function (res) {
-    //       console.log(res.prefixes);
-    //       //   res.prefixes.forEach(function (folderRef) {
-    //       //     // All the prefixes under listRef.
-    //       //     console.log(folderRef);
-    //       //     // You may call listAll() recursively on them.
-    //       //   });
-    //       res.items.forEach(function (itemRef) {
-    //         // All the items under listRef.
-    //         console.log(
-    //           `${itemRef._delegate._location.bucket}/${itemRef._delegate._location.path} `
-    //         );
-    //         console.log(itemRef._delegate._location.path);
-    //       });
-    //     })
-    //     .catch(function (error) {
-    //       // Uh-oh, an error occurred!
-    //     });
-    //   //   try {
-    //   //     const info = (
-    //   //       await firebase.storage().ref("/image/tablets/YOTOPT X109/black/").once("value")
-    //   //     ).val();
-    //   //     console.log(info);
-    //   //     return info;
-    //   //   } catch (e) {
-    //   //     console.log(e);
-    //   //     throw e;
-    //   //   }
-    // },
-  },
+
   components: {
     Splide,
     SplideSlide
-  },
-  props: {}
+  }
 };
 </script>
 <style lang="scss">
