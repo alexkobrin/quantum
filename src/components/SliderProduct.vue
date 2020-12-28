@@ -1,17 +1,14 @@
 <template>
   <h2 class="center" @click="fetchSliderImages">Try me</h2>
-  <div v-for="slide in slides" :key="slide.src">{{ slide.src }}</div>
-
-  f
 
   <splide :options="primaryOptions" ref="primary">
-    <splide-slide v-for="slide in slides" :key="slide.src">
+    <splide-slide v-for="slide in slider2" :key="slide.src">
       <img :src="slide.src" alt="slide.alt" />
     </splide-slide>
   </splide>
 
   <splide :options="secondaryOptions" ref="secondary">
-    <splide-slide v-for="(slide, idx) in slides" :key="idx">
+    <splide-slide v-for="(slide, idx) in slider2" :key="idx">
       <img :src="slide.src" alt=" " />
     </splide-slide>
   </splide>
@@ -56,8 +53,7 @@ export default {
         updateOnMove: true
       },
       slides: createSlides(),
-
-      count: 0
+      slider2: this.getSliderImage
     };
   },
 
@@ -75,13 +71,14 @@ export default {
             src: path
           });
         }
+        console.log(array);
       });
       this.$store.dispatch("addedSliderImage", array);
     }
   },
   mounted() {
     this.fetchSliderImages();
-
+    console.log(this.getItem);
     this.$refs.primary.sync(this.$refs.secondary.splide);
   },
 
