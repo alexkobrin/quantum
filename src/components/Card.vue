@@ -74,7 +74,12 @@ export default {
       this.rating = rating;
     },
     activeItem(item) {
-      this.$store.dispatch("addedSelectedItem", item);
+      if (this.$store.getters.getItem != item) {
+        this.$store.dispatch("addedSelectedItem", item);
+        this.$store.dispatch("addedSliderImage");
+      } else {
+        console.log("not work");
+      }
     },
     selectedItem(item) {
       this.$store.dispatch("addSelectedItemToCart", item);

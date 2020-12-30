@@ -1,32 +1,36 @@
 <template>
   <h2 class="center" @click="fetchSliderImages">Try me</h2>
 
-  <splide :options="primaryOptions" ref="primary">
-    <splide-slide v-for="slide in slider2" :key="slide.src">
-      <img :src="slide.src" alt="slide.alt" />
-    </splide-slide>
-  </splide>
+  <div class="slider-carousel">
+    <splide :options="primaryOptions" ref="primary">
+      <splide-slide v-for="slide in getSliderImage" :key="slide.src">
+        <img :src="slide.src" alt="slide.alt" />
+      </splide-slide>
+    </splide>
 
-  <splide :options="secondaryOptions" ref="secondary">
-    <splide-slide v-for="(slide, idx) in slider2" :key="idx">
-      <img :src="slide.src" alt=" " />
-    </splide-slide>
-  </splide>
+    <splide :options="secondaryOptions" ref="secondary">
+      <splide-slide v-for="(slide, idx) in getSliderImage" :key="idx">
+        <img :src="slide.src" alt=" " />
+      </splide-slide>
+    </splide>
+  </div>
 </template>
 <script>
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import { createSlides } from "../utils/slides";
+// import { createSlides } from "../utils/slides";
 import { mapGetters } from "vuex";
 import firebase from "firebase";
 
 export default {
   name: "Slider",
+
   computed: {
     ...mapGetters(["getSliderImage", "getItem"])
   },
   data() {
     return {
+      loading: true,
       primaryOptions: {
         type: "fade",
         rewind: true,
@@ -52,33 +56,13 @@ export default {
         isNavigation: true,
         updateOnMove: true
       },
-      slides: createSlides(),
-      slider2: this.getSliderImage
+
+      sliderArray: []
     };
   },
 
-  methods: {
-    fetchSliderImages() {
-      let storageRef = firebase.storage().ref();
-      let listRef = storageRef.child(
-        `image/${this.getItem.part}/${this.getItem.id}/${this.getItem.color[0]}`
-      );
-      let array = [];
-      listRef.listAll().then(async function(res) {
-        for (let i = 0; i < res.items.length; i++) {
-          let path = await res.items[i].getDownloadURL();
-          array.push({
-            src: path
-          });
-        }
-        console.log(array);
-      });
-      this.$store.dispatch("addedSliderImage", array);
-    }
-  },
+  methods: {},
   mounted() {
-    this.fetchSliderImages();
-    console.log(this.getItem);
     this.$refs.primary.sync(this.$refs.secondary.splide);
   },
 

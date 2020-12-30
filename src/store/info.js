@@ -29,8 +29,22 @@ export default {
     setSelectedItem(state, info) {
       state.productPageItem = info;
     },
-    setSliderImage(state, imageArray) {
-      state.sliderImage = imageArray;
+    setSliderImage(state) {
+      let storageRef = firebase.storage().ref();
+      let listRef = storageRef.child(
+        `image/${state.productPageItem.part}/${state.productPageItem.id}/${state.productPageItem.color[0]}`
+      );
+      let array = [];
+      listRef.listAll().then(async function(res) {
+        console.log("loading true");
+        for (let i = 0; i < res.items.length; i++) {
+          let result = await res.items[i].getDownloadURL();
+          array.push({
+            src: result
+          });
+        }
+        state.sliderImage = array;
+      });
     }
   },
   actions: {
@@ -52,10 +66,11 @@ export default {
     addedSelectedItem({ commit }, selectedItem) {
       commit("setSelectedItem", selectedItem);
     },
-    addedSliderImage({ commit }, imageArray) {
-      commit("setSliderImage", imageArray);
+    addedSliderImage({ commit }) {
+      commit("setSliderImage");
     }
   },
+
   getters: {
     getInfo: s => s.info,
     getItem: s => s.productPageItem,

@@ -14,15 +14,14 @@ import { mapGetters } from "vuex";
 import firebase from "firebase";
 export default {
   name: "ProductPage",
+  data() {
+    return {};
+  },
   computed: {
     ...mapGetters(["getItem"])
   },
   mounted() {},
-  methods: {
-    test() {
-      console.log("Hell");
-    }
-  },
+  methods: {},
   components: {
     SliderProduct
   }
@@ -42,5 +41,13 @@ export default {
 }
 .splide {
   margin-bottom: 0.5rem;
+}
+#overlay-spinner {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 10%;
+  left: -24%;
+  z-index: 1000;
 }
 </style>
