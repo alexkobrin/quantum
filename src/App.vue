@@ -1,30 +1,35 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import EmptyLayout from "@/layouts/EmptyLayout.vue";
+import MainLayout from "@/layouts/MainLayout.vue";
+export default {
+  components: { EmptyLayout, MainLayout },
+  computed: {
+    layout() {
+      return (this.$route.meta.layout || "empty") + "-layout";
     }
-  }
-}
+  },
+  mounted() {
+    // window.addEventListener("resize", function () {
+    //   if (window.innerWidth > 767) {
+    //     console.log("Desktop");
+    //   } else {
+    //     console.log("mobile");
+    //   }
+    // });
+  },
+  methods: {}
+};
+</script>
+<style lang="scss">
+@import "~materialize-css/dist/css/materialize.min.css";
+@import "assets/css/main.min.css";
+@import "assets/css/normalize.css";
+@import "assets/css/style.css";
+@import "assets/css/slick.css";
 </style>
