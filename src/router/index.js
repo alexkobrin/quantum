@@ -30,8 +30,35 @@ const routes = [
     name: "Product",
     meta: { layout: "main" },
     component: () => import("../views/ProductPage.vue")
-  }
-];
+  },
+  {
+    path: "/admin",
+    name: "admin",
+    component: () => import("../views/Admin.vue"),
+    meta: { requiredAuth: true },
+    // children: [
+    //   {
+    //     path: "overview",
+    //     name: "overview",
+    //     component: Overview
+    //   }]
+      // {
+      //   path: "products",
+      //   name: "products",
+      //   component: Products
+      // },
+      // {
+      //   path: "profile",
+      //   name: "profile",
+      //   component: Profiles
+      // },
+      // {
+      //   path: "orders",
+      //   name: "orders",
+      //   component: Orders
+      // }
+    }  
+]   
 
 const router = createRouter({
   history: createWebHistory(),

@@ -14,7 +14,7 @@
     "firebase": "^8.2.4",
     "materialize-css": "^1.0.0-rc.2",
     "register-service-worker": "^1.7.1",
-    "vue": "^3.0.0",
+    "vue": "^3.0.5",
     "vue-router": "^4.0.0-0",
     "vue-slider-component": "^4.0.0-beta.3",
     "vue-star-rating": "^2.1.0",

@@ -32,4 +32,5 @@ export default {
 @import "assets/css/normalize.css";
 @import "assets/css/style.css";
 @import "assets/css/slick.css";
+@import "assets/css/admin.scss";
 </style>

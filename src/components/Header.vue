@@ -9,15 +9,10 @@
           <div class="input-field inline">
             <input
               id="email_inline"
-              v-model.trim="$v.searchProduct.$model"
+              v-model.trim="searchProduct"
               type="text"
               placeholder="Search your products..."
-              :class="{
-                invalid:
-                  ($v.searchProduct.$dirty &&
-                    $v.searchProduct.minLength.$invalid) ||
-                  ($v.searchProduct.$dirty && $v.searchProduct.$model === '')
-              }"
+              
             />
 
             <span
@@ -248,7 +243,7 @@ export default {
     searchProduct: { required, minLength: minLength(5) }
   },
   components: {},
-  mounted() {
+  created() {
     M.Dropdown.init(this.$refs.dropdown, {
       alignment: "center"
     });

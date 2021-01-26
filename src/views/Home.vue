@@ -43,7 +43,7 @@ import Card from "../components/Card";
 
 import Filters from "../components/Filters";
 import "vue-slider-component/theme/default.css";
-
+import {fb} from "../firebase"
 export default {
   data() {
     return {
@@ -120,6 +120,17 @@ export default {
     }
   },
   watch: {},
+  created() {
+    fb.auth().onAuthStateChanged(function(user) {
+  if (user) {
+   console.log(user);
+  } else {
+   console.log('No user sign');
+  }
+});
+
+
+  },
 
   components: {
     Slider,

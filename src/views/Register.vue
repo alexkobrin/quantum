@@ -70,16 +70,19 @@
       <p>
         <label>
           <input v-model="agree" type="checkbox" />
-          <span
-            >I agree with <router-link to="/rules">rules and terms</router-link>
-          </span>
+           <span>I agree with  </span>
+          <!-- <small
+          v-if="$v.agree.$dirty && $v.agree.required"
+          class="helper-text invalid"
+          >Field name should not be empty</small> -->
         </label>
+        <a data-target="rules"  class=" modal-trigger"  > rules and terms </a>
       </p>
     </div>
     <div class="card-action">
       <div>
         <button class="btn waves-effect waves-light auth-submit"  type="submit">
-          SignUp
+          Sign Up
           <i class="material-icons right">send</i>
         </button>
       </div>
@@ -89,11 +92,23 @@
         <router-link to="/login">Log In!</router-link>
       </p>
     </div>
+     <div id="rules" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
   </form>
 </template>
 <script>
 import { email, required, minLength } from "vuelidate/lib/validators";
 import {fb ,db} from "../firebase"
+import messages from "../utils/messages.js"
+import { mapActions } from 'vuex'
+
 export default {
   name: "Register",
   data: () => ({
@@ -106,22 +121,37 @@ export default {
     email: { email, required },
     password: { required, minLength: minLength(6) },
     name: { required },
-    agree: { check: v => v }
+    agree: { checked: v=> v }
+  },
+  mounted() {
+
   },
   methods: {
-    submitHandler() {
-  fb.auth().createUserWithEmailAndPassword(this.email, this.password)
-  .then((user) => {
-     db.collection("profiles").doc(user.user.uid).set({
-       name: this.name
-     })
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-     console.log(errorCode, errorMessage);
-  });
-         
+    ...mapActions(['logout' , 'register']),
+    async  submitHandler() {
+     
+       this.$v.$touch()
+         if(this.$v.invalid) {
+              console.log('error');
+         }  else {
+           try {
+                await fb.auth().createUserWithEmailAndPassword(this.email,  this.password)
+                .then((user)=> {
+                    db.collection('profiles').doc(user.user.uid)
+                    .set({ 
+                       name: this.name,
+                       rules: true
+                       })
+                       })      
+                this.$router.push("/");         
+             }
+              catch (e) { 
+                 console.log(e) 
+                 throw (e)
+             }
+         }  
+               
+ 
     }
   }
 };
