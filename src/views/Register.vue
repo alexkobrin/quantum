@@ -108,7 +108,7 @@ import { email, required, minLength } from "vuelidate/lib/validators";
 import {fb ,db} from "../firebase"
 import messages from "../utils/messages.js"
 import { mapActions } from 'vuex'
-
+ 
 export default {
   name: "Register",
   data: () => ({
@@ -129,7 +129,6 @@ export default {
   methods: {
     ...mapActions(['logout' , 'register']),
     async  submitHandler() {
-     
        this.$v.$touch()
          if(this.$v.invalid) {
               console.log('error');
@@ -143,15 +142,14 @@ export default {
                        rules: true
                        })
                        })      
-                this.$router.push("/");         
+                this.$router.push("/admin");   
+                this.$message('You sucsesfully registered')      
              }
               catch (e) { 
-                 console.log(e) 
+               this.$error(messages[e.code]) 
                  throw (e)
              }
          }  
-               
- 
     }
   }
 };

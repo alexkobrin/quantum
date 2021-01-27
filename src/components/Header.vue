@@ -15,20 +15,15 @@
               
             />
 
-            <span
-              v-if="$v.searchProduct.$dirty && $v.searchProduct.$model === ''"
-              class="helper-text"
-            >
-              Field should not be empty
-            </span>
-            <span
+          
+           <!-- <span
               v-else-if="
                 $v.searchProduct.$dirty && $v.searchProduct.minLength.$invalid
               "
               class="helper-text"
             >
               Request must contain at least 5 symbols.
-            </span>
+            </span> -->
           </div>
         </div>
         <a
@@ -229,7 +224,7 @@
 </template>
 
 <script>
-import { required, minLength } from "vuelidate/lib/validators";
+// import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   name: "Header",
@@ -240,7 +235,7 @@ export default {
     selectedlanguage: "English"
   }),
   validations: {
-    searchProduct: { required, minLength: minLength(5) }
+     
   },
   components: {},
   created() {
@@ -260,10 +255,10 @@ export default {
       this.selectedlanguage = e.target.innerText.toUpperCase();
     },
     submitHandler() {
-      if (this.$v.searchProduct.$invalid) {
-        this.$v.searchProduct.$touch();
-        return;
-      }
+      // if (this.$v.searchProduct.$invalid) {
+      //   this.$v.searchProduct.$touch();
+      //   return;
+      // }
     }
   }
 };

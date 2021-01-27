@@ -3,7 +3,7 @@ import {fb,db} from '../firebase'
 export default {
     actions: {
         async login ({dispatch, commit}, {email,password}) {
-        
+         console.log(email,password);
             try {
                 await fb.auth().signInWithEmailAndPassword(email, password) 
                 } catch (e) {

@@ -41,7 +41,7 @@
         <small
           v-if="$v.password.$dirty && $v.password.required.$invalid"
           class="helper-text invalid"
-          >Поле не должно быть пустым</small
+          >Field email should not be empty</small
         >
         <small
           v-else-if="$v.password.$dirty && $v.password.minLength.$invalid"
@@ -67,7 +67,7 @@
 </template>
 <script>
 import { email, required, minLength } from "vuelidate/lib/validators";
-
+import messages from "../utils/messages"
 export default {
   name: "Login",
 
@@ -83,23 +83,30 @@ export default {
     // if (messages[this.$route.query.message]) {
     //   this.$message(messages[this.$route.query.message]);
     // }
+    // this.$message('Hello new user')
   },
   methods: {
-    submitHandler() {
-      if (!this.$v.$invalid) {
-        this.$v.email.$touch();
-        this.$v.password.$touch();
-        return;
+  async  submitHandler() {
+    this.$v.$touch() 
+    if (this.$v.$invalid) {
+        console.log('Error');
+    }  else {
+       console.log('Go');
+             const formData = {
+        email : this.email,
+        password: this.password
+      };
+      try {
+        await this.$store.dispatch("login", formData);
+        this.$router.push("/admin");
+      } catch (e) {
+         this.$error(messages[e.code])
       }
-      //const formData = {};
-      // try {
-      //   await this.$store.dispatch("login", formData);
-      //   this.$router.push("/");
-      // } catch (e) {
-      //   console.log(e);
-      // }
-      console.log("dffdfff");
-    }
+    }  
+       
+    
+      }      
+   
   }
 };
 </script>

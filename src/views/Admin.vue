@@ -1,16 +1,16 @@
 <template>
   <div class="admin ">
-    <div class="page-wrapper sidebar-bg ice-theme bg3 toggled">
-      <!-- <div id="show-slider" @click="closeSlideBar">
+    <div   class="page-wrapper sidebar-bg ice-theme bg3" :class="{toggled: isToggle}">
+      <div id="show-slider" @click="closeSlideBar">
         <a class=" btn btn-sm btn-dark" href="#">
           <i class="fas fa-bars"></i>
         </a>
-      </div> -->
+      </div>
       <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-content">
           <!-- sidebar-brand  -->
           <div class="sidebar-item sidebar-brand">
-            <router-link to="/">pro sidebar</router-link>
+            <router-link to="/">Quantum</router-link>
             <div id="close-slidebar" @click="closeSlideBar">
               <i class="   text-white fas fa-times-circle"></i>
             </div>
@@ -123,53 +123,57 @@
 <script>
 
 import { fb, db } from "../firebase";
-
+import messages from "../utils/messages"
 export default {
   name: "admin",
   data() {
     return {
       name: null,
-      email: null
+      email: null,
+      isToggle: true
     };
   },
+  
   methods: {
-    // closeSlideBar() {
-    //   $(".page-wrapper").toggleClass("toggled");
-    // },
-    // logOut() {
-    //   fb.auth()
-    //     .signOut()
-    //     .then(() => {
-    //       this.$router.replace("/");
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // }
+    closeSlideBar() {
+       this.isToggle = !this.isToggle
+    },
+    logOut() {
+      fb.auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace("/");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   },
   created() {
-    // let user = fb.auth().currentUser;
-    // this.email = user.email;
-    // var docRef = db.collection("profiles").doc(user.uid);
-    // docRef
-    //   .get()
-    //   .then(doc => {
-    //     if (doc.exists) {
-    //       this.name = doc.data().name;
-    //     } else {
-    //       // doc.data() will be undefined in this case
-    //       console.log("No such document!");
-    //     }
-    //   })
-    //   .catch(function(error) {
-    //     console.log("Error getting document:", error);
-    //   });
+    let user = fb.auth().currentUser;
+    this.email = user.email;
+    var docRef = db.collection("profiles").doc(user.uid);
+    docRef
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          this.name = doc.data().name;
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch(function(error) {
+      this.$error(messages[e.code])
+      });
   }
 };
 </script>
 <style lang="scss">
 #show-slider {
-  text-align: left;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 #close-slidebar {
   cursor: pointer;
