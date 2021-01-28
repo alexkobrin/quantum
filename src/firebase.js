@@ -1,8 +1,6 @@
 import firebase from "firebase/app";
+import "firebase/firestore";
 
-import "firebase/database";
-
- 
 let firebaseConfig ={
   apiKey: "AIzaSyC1poeyjxwkn2trvaoAGOd50O9EF0ddMmw",
   authDomain: "quantum-market.firebaseapp.com",

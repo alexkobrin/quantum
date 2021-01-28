@@ -15,7 +15,6 @@
               
             />
 
-          
            <!-- <span
               v-else-if="
                 $v.searchProduct.$dirty && $v.searchProduct.minLength.$invalid

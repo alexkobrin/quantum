@@ -149,8 +149,8 @@ export default {
         });
     }
   },
-  created() {
-    let user = fb.auth().currentUser;
+  mounted() {
+    let user = fb.auth().currentUser;  
     this.email = user.email;
     var docRef = db.collection("profiles").doc(user.uid);
     docRef
@@ -166,7 +166,7 @@ export default {
       .catch(function(error) {
       this.$error(messages[e.code])
       });
-  }
+   }
 };
 </script>
 <style lang="scss">

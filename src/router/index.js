@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import {fb} from "../firebase"
+
 
 const routes = [
   {
@@ -36,12 +38,13 @@ const routes = [
     name: "admin",
     component: () => import("../views/Admin.vue"),
     meta: { requiredAuth: true },
-    // children: [
-    //   {
-    //     path: "overview",
-    //     name: "overview",
-    //     component: Overview
-    //   }]
+    children: [
+      {
+        path: "overview",
+        name: "overview",
+        component: () => import("../views/Overview.vue")
+      }
+    ]
       // {
       //   path: "products",
       //   name: "products",
@@ -64,5 +67,23 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiredAuth)) {
+   
+    fb.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        next({
+          path: "/",
+          query: { redirect: to.fullPath }
+        });  
+      } else next()
+    })
+
+ } else {
+    next()
+ }
+ 
+})
 
 export default router;
