@@ -2,14 +2,13 @@
   <div class="product-page">
     <div class="container">
       <div class="product-page__inner">
-        <div class="product-page__slider"><SliderProduct /></div>
         <div class="product-page__info">Coming by</div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import SliderProduct from "../components/SliderProduct.vue";
+
 import { mapGetters } from "vuex";
 import firebase from "firebase";
 export default {
@@ -23,7 +22,7 @@ export default {
   mounted() {},
   methods: {},
   components: {
-    SliderProduct
+   
   }
 };
 </script>

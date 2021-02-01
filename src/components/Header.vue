@@ -12,9 +12,7 @@
               v-model.trim="searchProduct"
               type="text"
               placeholder="Search your products..."
-              
             />
-
            <!-- <span
               v-else-if="
                 $v.searchProduct.$dirty && $v.searchProduct.minLength.$invalid
@@ -25,13 +23,12 @@
             </span> -->
           </div>
         </div>
-        <a
+        <div
           ref="dropdown"
           class="dropdown-trigger waves-effect waves-blue lighten-4"
-          href="#"
           data-target="dropdown1"
           >{{ dropdownSelected }}
-          <i class="material-icons">arrow_drop_down</i></a
+          <i class="material-icons">arrow_drop_down</i></div
         >
         <ul id="dropdown1" class="dropdown-content">
           <li>
@@ -237,15 +234,15 @@ export default {
      
   },
   components: {},
-  created() {
-    M.Dropdown.init(this.$refs.dropdown, {
+  mounted() {
+     let instsnceDrop = M.Dropdown.init(this.$refs.dropdown, {
       alignment: "center"
     });
   },
   methods: {
     selected(e) {
-      this.dropdownSelected = e.target.attributes["data"].value.toUpperCase();
-      console.log(this.dropdownSelected.toLowerCase());
+        this.dropdownSelected = e.target.attributes["data"].value.toUpperCase();
+       
     },
     selectedCurrency(e) {
       this.currencySelected = e.target.innerText.toUpperCase();

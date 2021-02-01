@@ -40,16 +40,7 @@
 
         <div class="filters">
           <div class="filter-range">
-            <vue-slider
-              v-model="rangePrice"
-              :min="0"
-              :max="2000"
-              :interval="0.5"
-              :tooltip="'always'"
-              :tooltip-formatter="formatter2"
-              @click="applyPriceFilter"
-            >
-            </vue-slider>
+           
           </div>
         </div>
         <div class="filter-colors">
@@ -163,11 +154,11 @@
   </div>
 </template>
 <script>
-import VueSlider from "vue-slider-component";
+ 
 import { mapGetters } from "vuex";
 
 export default {
-  name: "filter",
+  name: "filters",
   data() {
     return {
       rangePrice: [0, 800],
@@ -285,7 +276,7 @@ export default {
     }
   },
   components: {
-    VueSlider
+    
   }
 };
 </script>

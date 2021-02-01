@@ -144,13 +144,13 @@ export default {
         .then(() => {
           this.$router.replace("/");
         })
-        .catch(err => {
-          console.log(err);
+        .catch(e => {
+         this.$error(messages[e.code])
         });
     }
   },
   mounted() {
-    let user = fb.auth().currentUser;  
+    let user =  fb.auth().currentUser;  
     this.email = user.email;
     var docRef = db.collection("profiles").doc(user.uid);
     docRef

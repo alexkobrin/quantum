@@ -3,7 +3,7 @@
     <section class="banner-section">
       <div class="container">
         <div class="banner-section__inner">
-          <Slider />
+          <Carousel/>
         </div>
       </div>
     </section>
@@ -37,13 +37,14 @@
 </template>
 
 <script>
-import Slider from "../components/Slider";
+ 
 import Aside from "../components/Aside";
 import Card from "../components/Card";
-
+import Carousel from '../components/Carousel';
 import Filters from "../components/Filters";
-import "vue-slider-component/theme/default.css";
-import {fb} from "../firebase"
+ 
+import {fb ,db} from "../firebase"
+ 
 export default {
   data() {
     return {
@@ -52,9 +53,27 @@ export default {
       loading: false
     };
   },
-
-  async mounted() {},
-
+   created() {
+    let user = fb.auth().currentUser;  
+    if (user) {
+    let  docRef = db.collection("profiles").doc(user.uid);
+      docRef
+        .get()
+        .then(doc => {
+          if (doc.exists) {    
+            console.log('hello ', doc.data().name );
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+          }
+        })
+        .catch(function(error) {
+        this.$error(messages[e.code])
+        });
+    } else {
+      console.log('rrr');
+    }  
+   },
   methods: {
     async selectedSection(itemTitle) {
       this.loading = true;
@@ -120,20 +139,11 @@ export default {
     }
   },
   watch: {},
-  created() {
-    fb.auth().onAuthStateChanged(function(user) {
-  if (user) {
-   console.log(user);
-  } else {
-   console.log('No user sign');
-  }
-});
-
-
+  computed : {
+     
   },
-
   components: {
-    Slider,
+   Carousel,
     Aside,
     Card,
     Filters

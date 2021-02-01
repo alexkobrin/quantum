@@ -68,6 +68,7 @@
 <script>
 import { email, required, minLength } from "vuelidate/lib/validators";
 import messages from "../utils/messages"
+import {fb} from "../firebase"
 export default {
   name: "Login",
 
@@ -97,8 +98,9 @@ export default {
         password: this.password
       };
       try {
-        await this.$store.dispatch("login", formData);
-        this.$router.push("/admin");
+         await fb.auth().signInWithEmailAndPassword(this.email, this.password)  
+         this.$message('You successfully Sign in')      
+         this.$router.push("/admin");
       } catch (e) {
          this.$error(messages[e.code])
       }
